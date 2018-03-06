@@ -10,9 +10,22 @@ import UIKit
 
 class ImageVC: UIViewController {
 
+    @IBOutlet var saveBtn: UIButton!
     @IBOutlet var returnBtn: UIButton!
     @IBOutlet var imageView: UIImageView!
     var image: UIImage!
+    
+    @IBAction func saveBtnPressed(_ sender: Any) {
+        UIGraphicsBeginImageContext(imageView.bounds.size)
+        imageView.image?.draw(in: CGRect(x: 0, y: 0,
+                                         width: imageView.frame.size.width, height: imageView.frame.size.height))
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        let activity = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        
+        present(activity, animated: true, completion: nil)
+    }
     
     @IBAction func returnPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
