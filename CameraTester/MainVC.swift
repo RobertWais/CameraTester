@@ -9,13 +9,18 @@
 import UIKit
 
 
-class ViewController: UIViewController {
+class MainVC: UIViewController {
 
+    
     var image: UIImage!
     @IBOutlet var imageView: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        imageView.layer.cornerRadius = 8.0
+        imageView.clipsToBounds = true
         // Do any additional setup after loading the view, typically from a nib.
+        //Sarah is hot
     }
 
     override func didReceiveMemoryWarning() {
@@ -23,12 +28,13 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    //Shows an image
     @IBAction func pressedBtn(_ sender: Any) {
     }
     
 }
 
-extension ViewController: UIImagePickerControllerDelegate,UINavigationControllerDelegate{
+extension MainVC: UIImagePickerControllerDelegate,UINavigationControllerDelegate{
     
     @IBAction func btnPressed(_ sender: UIButton){
         let imagePicker = UIImagePickerController()
@@ -36,11 +42,11 @@ extension ViewController: UIImagePickerControllerDelegate,UINavigationController
         imagePicker.allowsEditing = false
         if sender.tag == 0 {
             imagePicker.sourceType = .camera
+            self.present(imagePicker,animated: true, completion: nil)
         }else if sender.tag == 1{
                 print("2")
                 imagePicker.sourceType = .photoLibrary
-                self.present(imagePicker,animated:true, completion: nil)
-            
+                self.present(imagePicker,animated: true, completion: nil)
         }else if sender.tag == 2 {
             if image != nil {
             self.performSegue(withIdentifier: "showImage", sender: self)
@@ -88,6 +94,8 @@ extension ViewController: UIImagePickerControllerDelegate,UINavigationController
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showImage"{
+            
+            
             print("HERE-----------")
             var vc = segue.destination as! ImageVC
             print("\(imageView.description)")

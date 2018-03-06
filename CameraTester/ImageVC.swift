@@ -10,12 +10,26 @@ import UIKit
 
 class ImageVC: UIViewController {
 
+    @IBOutlet var returnBtn: UIButton!
     @IBOutlet var imageView: UIImageView!
     var image: UIImage!
     
+    @IBAction func returnPressed(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         imageView.image = image
+        imageView.layer.cornerRadius = 8.0
+        imageView.clipsToBounds = true
+        returnBtn.layer.cornerRadius = 35.0
+        returnBtn.clipsToBounds = true
+        let blurEffect = UIBlurEffect(style: .light)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = self.view.frame
+        
+        
+        self.view.insertSubview(blurEffectView, at: 0)
         // Do any additional setup after loading the view.
     }
 
